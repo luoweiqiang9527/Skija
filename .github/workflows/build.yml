@@ -131,13 +131,12 @@ jobs:
           path: target
       - name: Release to Maven Central
         run: |
-          echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --import
           python3 ./script/release.py
         # run: |
         #   echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --import
         #   python3 ./script/release.py
         env:
-          GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
+          # GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
       - name: Delete useless jars
