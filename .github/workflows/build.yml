@@ -41,31 +41,31 @@ jobs:
   #         name: macos-arm64-jars
   #         path: target/skija-macos-arm64-*
 
-  # build_linux:
-  #   runs-on: ubuntu-20.04
-  #   steps:
-  #     - run: |
-  #         echo "JAVA_HOME=$JAVA_HOME_11_X64" >> $GITHUB_ENV
-  #         echo "$JAVA_HOME_11_X64/bin" >> $GITHUB_PATH
-  #         sudo apt-get update
-  #         sudo apt-get --quiet --yes install ninja-build libglu1-mesa-dev g\+\+-9-aarch64-linux-gnu
-  #         sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 60 --slave /usr/bin/g++ g++ /usr/bin/g++-9
-  #         sudo update-alternatives --config gcc
-  #     - uses: actions/checkout@v3
-  #       with:
-  #         fetch-depth: 0
-  #     - run: python3 script/build.py
-  #     - run: python3 script/package_shared.py
-  #     - uses: actions/upload-artifact@v3
-  #       with:
-  #         name: shared-jars
-  #         path: target/skija-shared-*.jar
-  #     - run: python3 script/test.py
-  #     - run: python3 script/package_platform.py
-  #     - uses: actions/upload-artifact@v3
-  #       with:
-  #         name: linux-x64-jars
-  #         path: target/skija-linux-x64-*
+  build_linux:
+    runs-on: ubuntu-20.04
+    steps:
+      - run: |
+          echo "JAVA_HOME=$JAVA_HOME_11_X64" >> $GITHUB_ENV
+          echo "$JAVA_HOME_11_X64/bin" >> $GITHUB_PATH
+          sudo apt-get update
+          sudo apt-get --quiet --yes install ninja-build libglu1-mesa-dev g\+\+-9-aarch64-linux-gnu
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 60 --slave /usr/bin/g++ g++ /usr/bin/g++-9
+          sudo update-alternatives --config gcc
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - run: python3 script/build.py
+      - run: python3 script/package_shared.py
+      - uses: actions/upload-artifact@v3
+        with:
+          name: shared-jars
+          path: target/skija-shared-*.jar
+      # - run: python3 script/test.py
+      # - run: python3 script/package_platform.py
+      # - uses: actions/upload-artifact@v3
+      #   with:
+      #     name: linux-x64-jars
+      #     path: target/skija-linux-x64-*
       # Disabled until https://github.com/HumbleUI/SkiaBuild/issues/8
       # - run: python3 script/clean.py
       # - run: python3 script/build.py --arch arm64
